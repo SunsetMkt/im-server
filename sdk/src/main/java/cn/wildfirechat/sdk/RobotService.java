@@ -302,6 +302,20 @@ public class RobotService {
         return feedResult;
     }
 
+    public IMResult<Void> updateMomentsFeed(long feedId, int/*MomentsContentType*/ type, String text, List<MediaEntry> medias, List<String> toUsers, List<String> excludeUsers, List<String> mentionedUsers, String extra) throws Exception {
+        String path = APIPath.Robot_Moments_Update_Feed;
+        FeedPojo feedPojo = new FeedPojo();
+        feedPojo.feedId = feedId;
+        feedPojo.type = type;
+        feedPojo.text = text;
+        feedPojo.medias = medias;
+        feedPojo.to = toUsers;
+        feedPojo.ex = excludeUsers;
+        feedPojo.mu = mentionedUsers;
+        feedPojo.extra = extra;
+        return robotHttpUtils.httpJsonPost(path, feedPojo, Void.class);
+    }
+
     public IMResult<FeedsPojo> getMomentsFeeds(long feedId, int count, String user) throws Exception {
         String path = APIPath.Robot_Moments_Pull_Feeds;
         PullFeedRequestPojo requestPojo = new PullFeedRequestPojo();

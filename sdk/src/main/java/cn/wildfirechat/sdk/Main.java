@@ -1656,7 +1656,7 @@ public class Main {
 
         //仅专业版支持，且服务器端支持朋友圈
         if (robotMomentsEnabled) {
-            IMResult<FeedPojo> postResult = robotService.postMomentsFeed(ProtoConstants.MomentsContentType.Moments_Content_Text_Type, "hello from robot", null, null, null, null, null);
+            IMResult<FeedPojo> postResult = robotService.postMomentsFeed(ProtoConstants.MomentsContentType.Moments_Content_Text_Type, "hello from robot", null, null, null, null, "hello_extra");
             if (postResult.getErrorCode() == ErrorCode.ERROR_CODE_SUCCESS) {
                 System.out.println("post moments feed success");
             } else {
@@ -1672,14 +1672,12 @@ public class Main {
                 System.exit(-1);
             }
 
-            if(!pullResult.getResult().feeds.isEmpty()) {
-                IMResult<FeedPojo> feedResult = robotService.getMomentsFeed(pullResult.getResult().feeds.get(0).feedId);
-                if (feedResult.getErrorCode() == ErrorCode.ERROR_CODE_SUCCESS) {
-                    System.out.println("pull moments one feed success");
-                } else {
-                    System.out.println("pull moments one feed failure:" + feedResult.getErrorCode().code);
-                    System.exit(-1);
-                }
+            IMResult<FeedPojo> feedResult = robotService.getMomentsFeed(postResult.getResult().feedId);
+            if (feedResult.getErrorCode() == ErrorCode.ERROR_CODE_SUCCESS) {
+                System.out.println("pull moments one feed success");
+            } else {
+                System.out.println("pull moments one feed failure:" + feedResult.getErrorCode().code);
+                System.exit(-1);
             }
 
             IMResult<CommentPojo> commentThumbUpResult = robotService.postMomentsComment(postResult.result.feedId, 0, ProtoConstants.MomentsCommentType.Moments_Comment_Thumbup_Type, null, null, null);
@@ -1695,6 +1693,14 @@ public class Main {
                 System.out.println("post moments comment text success");
             } else {
                 System.out.println("post moments comment text failure:" + commentTextResult.getErrorCode().code);
+                System.exit(-1);
+            }
+
+            IMResult<Void> updateResult = robotService.updateMomentsFeed(postResult.getResult().feedId, ProtoConstants.MomentsContentType.Moments_Content_Text_Type, "hello from robot2", null, null, null, null, "hello_extra2");
+            if (updateResult.getErrorCode() == ErrorCode.ERROR_CODE_SUCCESS) {
+                System.out.println("update moments feed success");
+            } else {
+                System.out.println("update moments feed failure:" + updateResult.getErrorCode().code);
                 System.exit(-1);
             }
 

@@ -159,6 +159,7 @@ public interface APIPath {
 
     String Robot_Moments_Post_Feed = "/robot/moments/feed/post";
     String Robot_Moments_Pull_Feeds = "/robot/moments/feed/pull";
+    String Robot_Moments_Update_Feed = "/robot/moments/feed/update";
     String Robot_Moments_Post_Comment = "/robot/moments/comment/post";
     String Robot_Moments_Pull_Comment = "/robot/moments/comment/pull";
     String Robot_Moments_Fetch_Feed = "/robot/moments/feed/pull_one";
