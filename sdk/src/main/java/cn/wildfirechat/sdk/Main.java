@@ -193,6 +193,14 @@ public class Main {
             System.exit(-1);
         }
 
+        IMResult<OutputUserInfoList> batchGetUsers = UserAdmin.getBatchUsers(Arrays.asList("userId1", "admin", "FireRobot", "TestUser"));
+        if (batchGetUsers.getErrorCode() == ErrorCode.ERROR_CODE_SUCCESS) {
+            System.out.println("get batch user success");
+        } else {
+            System.out.println("get batch user failure");
+            System.exit(-1);
+        }
+
         InputOutputUserInfo updateUserInfo = new InputOutputUserInfo();
         updateUserInfo.setUserId(System.currentTimeMillis()+"");
         updateUserInfo.setDisplayName("updatedUserName");

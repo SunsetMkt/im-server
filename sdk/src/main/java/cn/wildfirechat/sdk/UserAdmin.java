@@ -5,6 +5,8 @@ import cn.wildfirechat.pojos.*;
 import cn.wildfirechat.sdk.model.IMResult;
 import cn.wildfirechat.sdk.utilities.AdminHttpUtils;
 
+import java.util.List;
+
 public class UserAdmin {
     public static IMResult<InputOutputUserInfo> getUserByName(String name) throws Exception {
         String path = APIPath.User_Get_Info;
@@ -35,6 +37,13 @@ public class UserAdmin {
         input.count = count;
         input.offset = offset;
         return AdminHttpUtils.httpJsonPost(path, input, OutputGetUserList.class);
+    }
+
+    public static IMResult<OutputUserInfoList> getBatchUsers(List<String> userIds) throws Exception {
+        String path = APIPath.User_Batch_Get_Infos;
+        InputStringList input = new InputStringList();
+        input.setList(userIds);
+        return AdminHttpUtils.httpJsonPost(path, input, OutputUserInfoList.class);
     }
 
     public static IMResult<OutputCreateUser> createUser(InputOutputUserInfo user) throws Exception {
