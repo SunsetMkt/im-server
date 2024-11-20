@@ -733,13 +733,16 @@ public class MemoryMessagesStore implements IMessagesStore {
             }
             pullType = ProtoConstants.PullType.Pull_Normal;
         } else if (type == ProtoConstants.ConversationType.ConversationType_ChatRoom) {
-            boolean isDirect = !StringUtil.isNullOrEmpty(message.getToUser());
+            boolean isDirect = !StringUtil.isNullOrEmpty(message.getToUser()) || !message.getToList().isEmpty();
             Collection<UserClientEntry> entries = getChatroomMembers(message.getConversation().getTarget());
             for (UserClientEntry entry : entries) {
                 if (isDirect) {
                     if (entry.userId.equals(message.getToUser())) {
                         notifyReceivers.add(message.getToUser());
                         break;
+                    }
+                    if (message.getToList().contains(entry.userId)) {
+                        notifyReceivers.add(entry.userId);
                     }
                 } else {
                     notifyReceivers.add(entry.userId);
