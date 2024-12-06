@@ -140,7 +140,7 @@ public class Server {
         Runtime.getRuntime().addShutdownHook(new Thread(instance::stopServer));
         Runtime.getRuntime().addShutdownHook(new Thread(httpServer::shutdown));
 
-        System.out.println("Wildfire IM server start success...");
+        System.out.println("Wildfire IM server start success.");
     }
 
     /**
