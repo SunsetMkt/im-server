@@ -152,7 +152,7 @@ public class SendMessageHandler extends IMHandler<WFCMessage.Message> {
 
                 if (message.getConversation().getType() == ProtoConstants.ConversationType.ConversationType_Private) {
                     if(!m_messagesStore.getBlackListExceptionTypes().contains(message.getContent().getType())) {
-                        errorCode = m_messagesStore.isAllowUserMessage(message.getConversation().getTarget(), fromUser);
+                        errorCode = m_messagesStore.isAllowUserMessage(message.getConversation().getTarget(), fromUser, message.getConversation().getLine());
                         if (errorCode != ErrorCode.ERROR_CODE_SUCCESS) {
                             if (errorCode == ErrorCode.ERROR_CODE_IN_BLACK_LIST && mBlacklistStrategy != ProtoConstants.BlacklistStrategy.Message_Reject) {
                                 ignoreMsg = true;

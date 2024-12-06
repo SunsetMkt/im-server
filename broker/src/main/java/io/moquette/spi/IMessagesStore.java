@@ -185,7 +185,7 @@ public interface IMessagesStore {
     ErrorCode blackUserRequest(String fromUser, String targetUserId, int status, long[] head);
     FriendData getFriendData(String fromUser, String targetUserId);
     ErrorCode SyncFriendRequestUnread(String userId, long unreadDt, long[] head);
-    ErrorCode isAllowUserMessage(String fromUser, String userId);
+    ErrorCode isAllowUserMessage(String fromUser, String userId, int line);
     ErrorCode isBlacked(String fromUser, String userId);
     ErrorCode setFriendAliasRequest(String fromUser, String targetUserId, String alias, long[] head);
     ErrorCode setFriendExtraRequest(String fromUser, String targetUserId, String extra, long[] head);

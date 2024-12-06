@@ -165,6 +165,7 @@ public class MemoryMessagesStore implements IMessagesStore {
     private boolean mMobileDefaultSilentWhenPCOnline = true;
     private boolean mDisableStrangerChat = false;
     private Set<String> mAllowStrangerChatSet = new HashSet<>();
+    private Set<Integer> mAllowStrangerLineSet = new HashSet<>();
     private boolean mDisableStrangerAddGroup = false;
 
     private boolean mIDUseUUID = true;
@@ -259,6 +260,18 @@ public class MemoryMessagesStore implements IMessagesStore {
                 allowStrangerList = allowStrangerList.replace("，", ",");
                 for (String s : allowStrangerList.split(",")) {
                     mAllowStrangerChatSet.add(s.trim());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            String allowStrangerList = m_Server.getConfig().getProperty(BrokerConstants.MESSAGE_Allow_Stranger_Line);
+            if(!StringUtil.isNullOrEmptyAfterTrim(allowStrangerList)) {
+                allowStrangerList = allowStrangerList.replace("，", ",");
+                for (String s : allowStrangerList.split(",")) {
+                    mAllowStrangerLineSet.add(Integer.parseInt(s.trim()));
                 }
             }
         } catch (Exception e) {
@@ -3196,7 +3209,7 @@ public class MemoryMessagesStore implements IMessagesStore {
     }
 
     @Override
-    public ErrorCode isAllowUserMessage(String targetUser, String fromUser) {
+    public ErrorCode isAllowUserMessage(String targetUser, String fromUser, int line) {
         HazelcastInstance hzInstance = m_Server.getHazelcastInstance();
         MultiMap<String, FriendData> friendsMap = hzInstance.getMultiMap(USER_FRIENDS);
 
@@ -3223,7 +3236,7 @@ public class MemoryMessagesStore implements IMessagesStore {
 
         if (mDisableStrangerChat) {
             //在禁止私聊时，是否是允许私聊的用户id
-            if(mAllowStrangerChatSet.contains(targetUser) || mAllowStrangerChatSet.contains(fromUser)) {
+            if(mAllowStrangerChatSet.contains(targetUser) || mAllowStrangerChatSet.contains(fromUser) || mAllowStrangerLineSet.contains(line)) {
                 return ErrorCode.ERROR_CODE_SUCCESS;
             }
 

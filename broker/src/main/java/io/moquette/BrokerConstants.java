@@ -152,6 +152,7 @@ public final class BrokerConstants {
 
     public static final String MESSAGE_Disable_Stranger_Chat = "message.disable_stranger_chat";
     public static final String MESSAGE_Allow_Stranger_Chat_List = "message.allow_stranger_chat_list";
+    public static final String MESSAGE_Allow_Stranger_Line = "message.allow_stranger_line";
 
     public static final String MESSAGE_Blacklist_Strategy = "message.blacklist.strategy";
     public static final String MESSAGE_Blacklist_Allow_Send = "message.blacklist.allow_send_to_black";
