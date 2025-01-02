@@ -36,9 +36,9 @@ public class RobotHttpUtils extends JsonUtils {
     private final CloseableHttpClient httpClient;
 
     public RobotHttpUtils(String url, String robotId, String robotSecret) {
-        this.url = url;
-        this.robotId = robotId;
-        this.robotSecret = robotSecret;
+        this.url = url.trim();
+        this.robotId = robotId.trim();
+        this.robotSecret = robotSecret.trim();
         PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
         cm.setValidateAfterInactivity(1000);
         httpClient = HttpClients.custom()

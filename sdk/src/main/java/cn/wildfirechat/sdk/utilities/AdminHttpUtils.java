@@ -38,8 +38,8 @@ public class AdminHttpUtils extends JsonUtils {
     private static CloseableHttpClient httpClient;
 
     public static void init(String url, String secret) {
-        adminUrl = url;
-        adminSecret = secret;
+        adminUrl = url.trim();
+        adminSecret = secret.trim();
         PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
         cm.setValidateAfterInactivity(1000);
         httpClient = HttpClients.custom()

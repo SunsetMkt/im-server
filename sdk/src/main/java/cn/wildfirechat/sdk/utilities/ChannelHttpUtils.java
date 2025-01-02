@@ -35,9 +35,9 @@ public class ChannelHttpUtils extends JsonUtils {
     private final CloseableHttpClient httpClient;
 
     public ChannelHttpUtils(String imurl, String channelId, String secret) {
-        this.imurl = imurl;
-        this.channelId = channelId;
-        this.channelSecret = secret;
+        this.imurl = imurl.trim();
+        this.channelId = channelId.trim();
+        this.channelSecret = secret.trim();
         PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
         cm.setValidateAfterInactivity(1000);
         httpClient = HttpClients.custom()
