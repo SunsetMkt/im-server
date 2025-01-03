@@ -2266,15 +2266,29 @@ public class MemoryMessagesStore implements IMessagesStore {
         }
 
         //check the new owner is in member list? is that necessary?
-        long updateDt = System.currentTimeMillis();
-        groupInfo = groupInfo.toBuilder().setOwner(newOwner).setUpdateDt(updateDt).setMemberUpdateDt(updateDt).build();
-        mIMap.set(groupId, groupInfo);
-
         MultiMap<String, WFCMessage.GroupMember> groupMembers = hzInstance.getMultiMap(GROUP_MEMBERS);
         Collection<WFCMessage.GroupMember> members = groupMembers.get(groupId);
         if (members == null || members.size() == 0) {
             members = loadGroupMemberFromDB(hzInstance, groupId);
         }
+
+        boolean isNewOwnerInGroup = false;
+        for (WFCMessage.GroupMember member : members) {
+            if (member.getMemberId().equals(newOwner)) {
+                if(member.getType() != GroupMemberType_Removed) {
+                    isNewOwnerInGroup = true;
+                }
+                break;
+            }
+        }
+        if(!isNewOwnerInGroup) {
+            return ErrorCode.ERROR_CODE_NOT_IN_GROUP;
+        }
+
+        long updateDt = System.currentTimeMillis();
+        groupInfo = groupInfo.toBuilder().setOwner(newOwner).setUpdateDt(updateDt).setMemberUpdateDt(updateDt).build();
+        mIMap.set(groupId, groupInfo);
+
         int modifyMemeberCount = 0;
         for (WFCMessage.GroupMember member : members) {
             if (modifyMemeberCount == 2) {
