@@ -24,10 +24,15 @@ public class RobotService {
     }
 
     public IMResult<SendMessageResult> sendMessage(String sender, Conversation conversation, MessagePayload payload) throws Exception {
+        return sendMessage(sender, conversation, payload, null);
+    }
+
+    public IMResult<SendMessageResult> sendMessage(String sender, Conversation conversation, MessagePayload payload, List<String> toUsers) throws Exception {
         String path = APIPath.Robot_Message_Send;
         SendMessageData messageData = new SendMessageData();
         messageData.setSender(sender);
         messageData.setConv(conversation);
+        messageData.setToUsers(toUsers);
         messageData.setPayload(payload);
         return robotHttpUtils.httpJsonPost(path, messageData, SendMessageResult.class);
     }
