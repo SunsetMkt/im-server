@@ -25,6 +25,7 @@ public class InputOutputUserInfo {
     private String social;
     private String extra;
     private int type;
+    private int deleted;
     private long updateDt;
 
     public static InputOutputUserInfo fromPbUser(WFCMessage.User pbUser) {
@@ -41,6 +42,7 @@ public class InputOutputUserInfo {
         inputCreateUser.social = pbUser.getSocial();
         inputCreateUser.extra = pbUser.getExtra();
         inputCreateUser.type = pbUser.getType();
+        inputCreateUser.deleted = pbUser.getDeleted();
         inputCreateUser.updateDt = pbUser.getUpdateDt();
         return inputCreateUser;
     }
@@ -77,6 +79,7 @@ public class InputOutputUserInfo {
             newUserBuilder.setExtra(getExtra());
         newUserBuilder.setGender(gender);
         newUserBuilder.setType(type);
+        newUserBuilder.setDeleted(deleted);
 
         newUserBuilder.setUpdateDt(System.currentTimeMillis());
         return newUserBuilder.build();
@@ -184,5 +187,13 @@ public class InputOutputUserInfo {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
     }
 }
