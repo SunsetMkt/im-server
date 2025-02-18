@@ -57,7 +57,7 @@ public class NotDeliveredMessageContent extends MessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = super.encodeBase();
+        MessagePayload payload = super.encode();
         JSONObject obj = new JSONObject();
         obj.put("mid", this.messageUid);
         obj.put("all", this.allFailure);
@@ -74,7 +74,7 @@ public class NotDeliveredMessageContent extends MessageContent {
     @Override
     public void decode(MessagePayload payload) {
         try {
-
+                super.decode(payload);
                 JSONObject obj = (JSONObject) new JSONParser().parse(new String(Base64.getDecoder().decode(payload.getBase64edData())));
                 this.messageUid = (long) obj.get("mid");
                 this.allFailure = (boolean) obj.get("all");

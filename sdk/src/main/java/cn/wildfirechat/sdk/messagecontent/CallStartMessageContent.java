@@ -133,7 +133,7 @@ public class CallStartMessageContent extends MessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = super.encodeBase();
+        MessagePayload payload = super.encode();
         payload.setContent(callId);
         payload.setPushContent("音视频通话邀请");
 
@@ -175,6 +175,7 @@ public class CallStartMessageContent extends MessageContent {
 
     @Override
     public void decode(MessagePayload payload) {
+        super.decode(payload);
         callId = payload.getContent();
 
         try {

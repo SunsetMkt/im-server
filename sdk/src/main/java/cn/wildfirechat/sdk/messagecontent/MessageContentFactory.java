@@ -49,7 +49,6 @@ public class MessageContentFactory {
         } else {
             messageContent = new UnknownMessageContent();
         }
-        messageContent.decodeBase(messagePayload);
         messageContent.decode(messagePayload);
         return messageContent;
     }

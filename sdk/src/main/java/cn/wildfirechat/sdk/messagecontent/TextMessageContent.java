@@ -56,7 +56,7 @@ public class TextMessageContent extends MessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = encodeBase();
+        MessagePayload payload = super.encode();
         payload.setSearchableContent(text);
         if(quoteInfo != null) {
             payload.setBase64edData(Base64.getEncoder().encodeToString(quoteInfo.encode().toJSONString().getBytes(StandardCharsets.UTF_8)));
@@ -66,6 +66,7 @@ public class TextMessageContent extends MessageContent {
 
     @Override
     public void decode(MessagePayload payload) {
+        super.decode(payload);
         text = payload.getSearchableContent();
         if(!TextUtils.isEmpty(payload.getBase64edData())) {
             String jsonStr = new String(Base64.getDecoder().decode(payload.getBase64edData()), StandardCharsets.UTF_8);

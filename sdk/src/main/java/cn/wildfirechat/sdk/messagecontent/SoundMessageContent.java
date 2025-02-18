@@ -35,11 +35,12 @@ public class SoundMessageContent extends MediaMessageContent {
 
     @Override
     public void decode(MessagePayload payload) {
+        super.decode(payload);
     }
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = encodeBase();
+        MessagePayload payload = super.encode();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("duration", duration);
         payload.setContent(jsonObject.toJSONString());

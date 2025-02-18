@@ -43,14 +43,14 @@ public class TypingMessageContent extends MessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = super.encodeBase();
+        MessagePayload payload = super.encode();
         payload.setContent(typingType + "");
         return payload;
     }
 
     @Override
     public void decode(MessagePayload payload) {
-        super.decodeBase(payload);
+        super.decode(payload);
         typingType = Integer.parseInt(payload.getContent());
     }
 }

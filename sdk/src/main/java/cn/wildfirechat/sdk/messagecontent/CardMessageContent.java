@@ -100,7 +100,7 @@ public class CardMessageContent extends MessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = super.encodeBase();
+        MessagePayload payload = super.encode();
         payload.setContent(target);
             JSONObject objWrite = new JSONObject();
             objWrite.put("t", type);
@@ -116,6 +116,7 @@ public class CardMessageContent extends MessageContent {
 
     @Override
     public void decode(MessagePayload payload) {
+        super.decode(payload);
         target = payload.getContent();
         try {
             if (!StringUtil.isNullOrEmpty(payload.getBase64edData())) {

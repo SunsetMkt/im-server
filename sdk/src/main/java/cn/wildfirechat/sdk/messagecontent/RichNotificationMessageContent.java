@@ -89,7 +89,7 @@ public class RichNotificationMessageContent extends MessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = encodeBase();
+        MessagePayload payload = super.encode();
         payload.setPushContent(title);
         payload.setContent(desc);
         JSONObject jsonObject = new JSONObject();
@@ -113,5 +113,6 @@ public class RichNotificationMessageContent extends MessageContent {
 
     @Override
     public void decode(MessagePayload payload) {
+        super.decode(payload);
     }
 }

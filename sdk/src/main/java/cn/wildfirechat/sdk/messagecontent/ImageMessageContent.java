@@ -34,7 +34,7 @@ public class ImageMessageContent extends MediaMessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = super.encodeBase();
+        MessagePayload payload = super.encode();
         payload.setSearchableContent("[图片]");
         payload.setBase64edData(Base64.getEncoder().encodeToString(thumbnailBytes));
 
@@ -44,7 +44,7 @@ public class ImageMessageContent extends MediaMessageContent {
 
     @Override
     public void decode(MessagePayload payload) {
-        super.decodeBase(payload);
+        super.decode(payload);
         thumbnailBytes = Base64.getDecoder().decode(payload.getBase64edData());
     }
 

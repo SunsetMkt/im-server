@@ -22,7 +22,7 @@ public abstract class MessageContent {
         return this;
     }
 
-    protected MessagePayload encodeBase() {
+    public MessagePayload encode() {
         MessagePayload payload = new MessagePayload();
         payload.setType(getContentType());
         payload.setPersistFlag(getPersistFlag());
@@ -32,13 +32,11 @@ public abstract class MessageContent {
         return payload;
     }
 
-    protected void decodeBase(MessagePayload payload) {
+    protected void decode(MessagePayload payload) {
         this.mentionedType = payload.getMentionedType();
         this.mentionedTargets = payload.getMentionedTarget();
         this.extra = payload.getExtra();
     }
     abstract public int getContentType();
     abstract public int getPersistFlag();
-    abstract public MessagePayload encode();
-    abstract public void decode(MessagePayload payload);
 }

@@ -14,11 +14,17 @@ abstract public class MediaMessageContent extends MessageContent {
     }
 
     @Override
-    protected MessagePayload encodeBase() {
-        MessagePayload payload = super.encodeBase();
+    public MessagePayload encode() {
+        MessagePayload payload = super.encode();
         payload.setRemoteMediaUrl(remoteMediaUrl);
         payload.setMediaType(getMediaType());
         return payload;
+    }
+
+    @Override
+    public void decode(MessagePayload payload) {
+        super.decode(payload);
+        remoteMediaUrl = payload.getRemoteMediaUrl();
     }
 
     protected abstract int getMediaType();

@@ -24,7 +24,7 @@ public class TipNotificationMessageContent extends MessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = super.encodeBase();
+        MessagePayload payload = super.encode();
         payload.setContent(tip);
 
         return payload;
@@ -32,7 +32,7 @@ public class TipNotificationMessageContent extends MessageContent {
 
     @Override
     public void decode(MessagePayload payload) {
-        super.decodeBase(payload);
+        super.decode(payload);
         tip = payload.getContent();
     }
 

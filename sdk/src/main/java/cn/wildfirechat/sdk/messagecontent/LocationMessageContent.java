@@ -66,7 +66,7 @@ public class LocationMessageContent extends MessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = super.encodeBase();
+        MessagePayload payload = super.encode();
         payload.setSearchableContent(title);
         payload.setBase64edData(Base64.getEncoder().encodeToString(this.thumbnailByte));
 
@@ -82,6 +82,7 @@ public class LocationMessageContent extends MessageContent {
 
     @Override
     public void decode(MessagePayload payload) {
+        super.decode(payload);
         if (!StringUtil.isNullOrEmpty(payload.getBase64edData())) {
             this.thumbnailByte = Base64.getDecoder().decode(payload.getBase64edData());
         }

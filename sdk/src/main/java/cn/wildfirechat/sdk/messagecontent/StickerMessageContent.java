@@ -34,7 +34,7 @@ public class StickerMessageContent extends MediaMessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = super.encodeBase();
+        MessagePayload payload = super.encode();
         payload.setSearchableContent("[动态表情]");
         JSONObject objWrite = new JSONObject();
         objWrite.put("x", width);
@@ -47,8 +47,7 @@ public class StickerMessageContent extends MediaMessageContent {
 
     @Override
     public void decode(MessagePayload payload) {
-        super.decodeBase(payload);
-
+        super.decode(payload);
         try {
             JSONObject jsonObject = (JSONObject) new JSONParser().parse(new String(Base64.getDecoder().decode(payload.getBase64edData())));
             width = (int) jsonObject.get("x");

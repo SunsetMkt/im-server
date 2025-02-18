@@ -32,7 +32,7 @@ public class ArticlesMessageContent extends MessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = super.encodeBase();
+        MessagePayload payload = super.encode();
         payload.setSearchableContent(topArticle.title);
         JSONObject object = new JSONObject();
 
@@ -53,6 +53,7 @@ public class ArticlesMessageContent extends MessageContent {
     @Override
     public void decode(MessagePayload payload) {
         try {
+            super.decode(payload);
             JSONObject object = (JSONObject) new JSONParser().parse(new String(Base64.getDecoder().decode(payload.getBase64edData())));
             JSONObject topObj = (JSONObject) object.get("top");
             this.topArticle = Article.fromJson(topObj);

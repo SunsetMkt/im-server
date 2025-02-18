@@ -72,9 +72,7 @@ public class LinkMessageContent extends MessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = super.encodeBase();
-
-
+        MessagePayload payload = super.encode();
         payload.setSearchableContent(title);
         JSONObject objWrite = new JSONObject();
         objWrite.put("d", contentDigest);
@@ -88,9 +86,8 @@ public class LinkMessageContent extends MessageContent {
 
     @Override
     public void decode(MessagePayload payload) {
+        super.decode(payload);
         title = payload.getSearchableContent();
-
-
         try {
             if (!StringUtil.isNullOrEmpty(payload.getBase64edData())) {
                 JSONObject jsonObject = (JSONObject) new JSONParser().parse(new String(Base64.getDecoder().decode(payload.getBase64edData())));

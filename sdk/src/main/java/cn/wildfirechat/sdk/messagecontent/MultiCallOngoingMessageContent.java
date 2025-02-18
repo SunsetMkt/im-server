@@ -43,7 +43,7 @@ public class MultiCallOngoingMessageContent extends MessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = super.encodeBase();
+        MessagePayload payload = super.encode();
         payload.setContent(callId);
         JSONObject object = new JSONObject();
         object.put("initiator", this.initiator);
@@ -60,6 +60,7 @@ public class MultiCallOngoingMessageContent extends MessageContent {
 
     @Override
     public void decode(MessagePayload payload) {
+        super.decode(payload);
         this.callId = payload.getContent();
         try {
             JSONObject object = (JSONObject) new JSONParser().parse(new String(Base64.getDecoder().decode(payload.getBase64edData())));

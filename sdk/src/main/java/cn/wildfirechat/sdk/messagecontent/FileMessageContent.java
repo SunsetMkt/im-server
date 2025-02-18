@@ -26,7 +26,7 @@ public class FileMessageContent extends MediaMessageContent {
 
     @Override
     public MessagePayload encode() {
-        MessagePayload payload = super.encodeBase();
+        MessagePayload payload = super.encode();
         payload.setSearchableContent(name);
         payload.setContent(size + "");
 
@@ -51,7 +51,7 @@ public class FileMessageContent extends MediaMessageContent {
 
     @Override
     public void decode(MessagePayload payload) {
-        super.decodeBase(payload);
+        super.decode(payload);
 
         if (payload.getSearchableContent().startsWith(FILE_NAME_PREFIX)) {
             name = payload.getSearchableContent().substring(payload.getSearchableContent().indexOf(FILE_NAME_PREFIX) + FILE_NAME_PREFIX.length());
