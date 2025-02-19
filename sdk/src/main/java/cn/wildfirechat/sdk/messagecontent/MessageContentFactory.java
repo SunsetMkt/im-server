@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MessageContentFactory {
-    private static final Map<Integer, Class<MessageContent>> contentClassMap = new ConcurrentHashMap<>();
+    private static final Map<Integer, Class<? extends MessageContent>> contentClassMap = new ConcurrentHashMap<>();
 
     static  {
         registerAllMessageContent();
@@ -36,7 +36,7 @@ public class MessageContentFactory {
     }
 
     public static MessageContent decodeMessageContent(MessagePayload messagePayload) {
-        Class<MessageContent> cls = contentClassMap.get(messagePayload.getType());
+        Class<? extends MessageContent> cls = contentClassMap.get(messagePayload.getType());
         MessageContent messageContent;
         if(cls != null) {
             try {
@@ -51,6 +51,11 @@ public class MessageContentFactory {
         }
         messageContent.decode(messagePayload);
         return messageContent;
+    }
+
+    public static void registerCustomMessageContent(Class<? extends MessageContent> cls) throws Exception {
+        MessageContent content = cls.newInstance();
+        contentClassMap.put(content.getContentType(), cls);
     }
 
     private static void registerAllMessageContent() {
